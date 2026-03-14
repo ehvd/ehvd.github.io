@@ -3,17 +3,41 @@ on:
   push:
     branches:
       - main
+
 permissions:
   contents: write
   pages: write
   id-token: write
+
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
           python-version: 3.x
-      - run: pip install mkdocs mkdocs-material
-      - run: mkdocs gh-deploy --force --clean
+      
+      - name: Install dependencies
+        run: pip install mkdocs mkdocs-material
+      
+      - name: Build pages
+        run: mkdocs build
+      
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy-pages.outputs.page_url }}
+    
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
