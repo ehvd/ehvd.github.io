@@ -19,4 +19,9 @@ nav:
   - Recruitment: recruitment.md
   - Raid Info:
       - Rules: raid-rules.md
+      - Guides:
+          - Molten Core: guides/raids/molten-core.md
+          - Blackwing Lair: guides/raids/blackwing-lair.md
+          - Temple of Ahn'Qiraj: guides/raids/temple-of-ahnqiraj.md
+          - Naxxramas: guides/raids/naxxramas.md
       - Boss Guides: guides/boss-1.md
