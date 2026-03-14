@@ -28,15 +28,14 @@ jobs:
         run: mkdocs build
       
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: github-pages
           path: ./site  # MkDocs default output directory
 
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deploy-pages.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }}
     
     needs: build
     runs-on: ubuntu-latest
